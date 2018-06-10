@@ -93,6 +93,10 @@ public class TelephoneType extends VCardParameter {
 		super(value);
 	}
 
+	public TelephoneType(String value, boolean preserveCase) {
+		super(value, preserveCase);
+	}
+
 	/**
 	 * Searches for a parameter value that is defined as a static constant in
 	 * this class.
