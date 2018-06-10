@@ -46,9 +46,15 @@ public class VCardParameterCaseClasses<T extends VCardParameter> extends CaseCla
 		//reflection: return new ClassName(value);
 		try {
 			//try (String) constructor
-			Constructor<T> constructor = clazz.getDeclaredConstructor(String.class);
-			constructor.setAccessible(true);
-			return constructor.newInstance(value);
+			try {
+				Constructor<T> constructor = clazz.getDeclaredConstructor(String.class, Boolean.TYPE);
+				constructor.setAccessible(true);
+				return constructor.newInstance(value, true);
+			} catch (NoSuchMethodException e) {
+				Constructor<T> constructor = clazz.getDeclaredConstructor(String.class);
+				constructor.setAccessible(true);
+				return constructor.newInstance(value);
+			}
 		} catch (Exception e) {
 			try {
 				//try (String, VCardVersion...) constructor
